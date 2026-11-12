@@ -27,10 +27,22 @@ const HELP = [
 /** A tiny fake shell visitors can type into. */
 export default function Terminal() {
   const router = useRouter();
-  const [lines, setLines] = useState<Line[]>([
-    { kind: "out", text: "arnav-os v1.0 · AI assistant online." },
-    { kind: "out", text: "Ask me anything about Arnav, or type 'help' for commands." },
-  ]);
+  const [lines, setLines] = useState<Line[]>([{ kind: "out", text: "arnav-os v1.0 · type 'help' to get started." }]);
+  const [aiOn, setAiOn] = useState(false);
+
+  useEffect(() => {
+    fetch("/api/ask")
+      .then((r) => r.json())
+      .then((j) => {
+        if (!j?.enabled) return;
+        setAiOn(true);
+        setLines([
+          { kind: "out", text: "arnav-os v1.0 · AI assistant online." },
+          { kind: "out", text: "Ask me anything about Arnav, or type 'help' for commands." },
+        ]);
+      })
+      .catch(() => {});
+  }, []);
   const [input, setInput] = useState("");
   const [hist, setHist] = useState<string[]>([]);
   const [hIdx, setHIdx] = useState(-1);
@@ -101,7 +113,7 @@ export default function Terminal() {
       case "":
         break;
       case "help":
-        res = out(HELP);
+        res = out(aiOn ? HELP : HELP.slice(3));
         break;
       case "about":
       case "whoami":
@@ -170,13 +182,20 @@ export default function Terminal() {
         chat.current = [];
         return;
       case "ask":
+        if (!aiOn) {
+          res = out("AI answers aren't switched on yet. Try 'about', 'projects' or 'contact'.", "err");
+          break;
+        }
         if (args.length) askAI(args.join(" "));
         else res = out("usage: ask <your question>", "err");
         if (args.length) return;
         break;
       default:
-        askAI(cmd);
-        return;
+        if (aiOn) {
+          askAI(cmd);
+          return;
+        }
+        res = out(`command not found: ${c}. Try 'help'.`, "err");
     }
     setLines((l) => [...l, { kind: "in", text: cmd }, ...res]);
   };
@@ -233,7 +252,7 @@ export default function Terminal() {
             autoComplete="off"
             autoCapitalize="off"
             spellCheck={false}
-            placeholder={busy ? "Bit is typing…" : "ask me anything, or type 'help'"}
+            placeholder={busy ? "Bit is typing…" : aiOn ? "ask me anything, or type 'help'" : "type 'help'"}
             className="w-full bg-transparent text-fg caret-cyan outline-none placeholder:text-muted/50"
           />
         </form>

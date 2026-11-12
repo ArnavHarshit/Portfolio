@@ -34,6 +34,11 @@ function rateLimited(ip: string) {
 
 type Msg = { role: "user" | "assistant"; content: string };
 
+/** Lets the terminal know whether AI answers are available. */
+export async function GET() {
+  return Response.json({ enabled: Boolean(process.env.ANTHROPIC_API_KEY) });
+}
+
 export async function POST(req: Request) {
   if (!process.env.ANTHROPIC_API_KEY) {
     return new Response("AI is offline right now (no API key configured).", { status: 503 });
