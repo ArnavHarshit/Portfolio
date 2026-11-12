@@ -36,7 +36,7 @@ export default function About() {
 
           <Reveal delay={0.15}>
             <Terminal />
-            <p className="mt-3 text-center font-mono text-xs text-muted">↑ it&apos;s real. Ask it anything about me</p>
+            <p className="mt-3 text-center font-mono text-xs text-muted">↑ it&apos;s real, go ahead and type <span className="text-cyan">help</span></p>
           </Reveal>
         </div>
 
