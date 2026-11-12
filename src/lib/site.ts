@@ -9,5 +9,5 @@ const vercelProd = process.env.VERCEL_PROJECT_PRODUCTION_URL;
 export const SITE_URL = (
   process.env.NEXT_PUBLIC_SITE_URL ||
   (vercelProd ? `https://${vercelProd}` : "") ||
-  (process.env.NODE_ENV === "production" ? "https://portfolio-tau-flax-39.vercel.app" : "http://localhost:3000")
+  (process.env.NODE_ENV === "production" ? "https://dangerwizard-world.vercel.app" : "http://localhost:3000")
 ).replace(/\/+$/, "");

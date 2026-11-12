@@ -2,6 +2,8 @@
 
 Personal portfolio of **Arnav Harshit**: systems and AI engineer, IIT Kanpur.
 
+**Live site: [dangerwizard-world.vercel.app](https://dangerwizard-world.vercel.app)**
+
 Built with Next.js 15, Tailwind CSS 4 and Framer Motion.
 
 ## Features
@@ -41,4 +43,4 @@ See [`.env.example`](.env.example). Everything is optional:
 
 ## Deploy
 
-Import the repo on [Vercel](https://vercel.com), add the environment variables, and deploy.
+Deployed on [Vercel](https://vercel.com) at https://dangerwizard-world.vercel.app. Every push to `main` redeploys automatically.
