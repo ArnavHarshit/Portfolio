@@ -7,7 +7,7 @@ Built with Next.js 15, Tailwind CSS 4 and Framer Motion.
 ## Features
 
 - **Bit**, an SVG robot that follows your cursor, blinks, waves, talks and falls asleep when idle
-- AI terminal: ask questions about me in plain English (powered by the Anthropic API), plus built-in commands like `help` and `projects`
+- AI terminal: ask questions about me in plain English, plus built-in commands like `help` and `projects`
 - `Ctrl + K` command menu, custom cursor, scroll animations, 3D tilt cards
 - Project case-study pages, resume viewer, custom 404
 - Blog with a password-protected editor at `/admin` (only the owner can write)
